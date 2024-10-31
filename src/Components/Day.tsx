@@ -11,9 +11,9 @@ import Paper from '@mui/material/Paper';
 
 import GameDay from "../model/GameDay.ts";
 import Game from "../model/Game.ts";
-import {IGameData} from "../../../spring_training_react/src/model/GameDay.ts";
+import {IGameData} from "../model/IGameData.ts"
 
-// chg
+
 
 interface IProps {
     date: Date | null

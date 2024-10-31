@@ -1,4 +1,4 @@
-import {IGameData} from "../../../spring_training_react/src/model/GameDay.ts";
+import {IGameData} from "../model/IGameData.ts"
 
 export const schedule: Array<IGameData> = [
     {
