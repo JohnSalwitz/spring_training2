@@ -13,7 +13,7 @@ import GameDay from "../model/GameDay.ts";
 import Game from "../model/Game.ts";
 import {IGameData} from "../../../spring_training_react/src/model/GameDay.ts";
 
-
+// chg
 
 interface IProps {
     date: Date | null
