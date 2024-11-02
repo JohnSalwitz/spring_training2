@@ -1,5 +1,6 @@
 import {IGameData} from "../model/IGameData.ts"
 
+export const title = "Cactus Spring Training 2025";
 export const schedule: Array<IGameData> = [
     {
         "index": 0,

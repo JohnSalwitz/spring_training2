@@ -16,6 +16,7 @@ export default class Game {
         return this._row.away;
     }
 
+
     get awaySS(): boolean {
         return this._awaySplit;
     }

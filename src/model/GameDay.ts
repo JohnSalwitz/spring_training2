@@ -1,15 +1,25 @@
 import Game from "./Game";
 import {Event} from "react-big-calendar";
 import {IGameData, SCORE_WEIGHTS} from "./IGameData.ts";
+import {TeamAbreviationType} from "./TeamData.ts";
 
 export default class GameDay {
     private _date: Date;
     private _schedule: Array<IGameData>;
+    private _games: Array<Game>;
 
     constructor(seasonSchedule: Array<IGameData>, date: Date) {
         this._date = date;
         this._schedule = seasonSchedule.filter(
             (r: IGameData) => new Date(r.startDate).toDateString() === date.toDateString());
+        this._games  = this._schedule.map((r: IGameData) => {
+            const awaySplitSquad =
+                this._schedule.filter((r2: IGameData) => [r2.away, r2.home].includes(r.away)).length > 1;
+            const homeSplitSquad =
+                this._schedule.filter((r2: IGameData) => [r2.away, r2.home].includes(r.home)).length > 1;
+            return new Game(r, awaySplitSquad, homeSplitSquad);
+        });
+        this._games =  this._games.sort((a, b) => b.score-a.score);
     }
 
     get date() : Date {
@@ -24,15 +34,7 @@ export default class GameDay {
      * Returns sorted list of games on this day (sorted by score)
      */
     get games() : Array<Game> {
-        let _games = this._schedule.map((r: IGameData) => {
-            const awaySplitSquad =
-                this._schedule.filter((r2: IGameData) => [r2.away, r2.home].includes(r.away)).length > 1;
-            const homeSplitSquad =
-                this._schedule.filter((r2: IGameData) => [r2.away, r2.home].includes(r.home)).length > 1;
-            return new Game(r, awaySplitSquad, homeSplitSquad);
-        });
-        _games= _games.sort((a, b) => b.score-a.score);
-        return _games;
+        return this._games;
     }
 
     get score() : number {
@@ -56,6 +58,19 @@ export default class GameDay {
 
         return Math.round(score);
 
+    }
+
+    homeGame(home: TeamAbreviationType) : Game | undefined {
+        return this.games.find(g => g.home === home);
+    }
+
+    homeGameScore(home: TeamAbreviationType) : [string | undefined, number] {
+        const _game = this.games.find(g => g.home === home);
+        if(_game !== undefined) {
+            return [_game.away, _game.score];
+        }
+
+        return [undefined, 0]
     }
 
     /**

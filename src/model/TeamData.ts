@@ -34,4 +34,23 @@ const TEAM_DATA : Array<TeamDataType> = [
     ["Washington Nationals","WAS"],
  ];
 
+export const TEAM_DATA_WEST : Array<TeamDataType> = [
+    ["Arizona Diamondbacks","ARI"],
+    ["Chicago Cubs","CHC"],
+    ["Chicago White Sox","CWS"],
+    ["Cincinnati Reds","CIN"],
+    ["Cleveland Indians","CLE"],
+    ["Colorado Rockies","COL"],
+    ["Kansas City Royals","KAN"],
+    ["Los Angeles Angels of Anaheim","LAA"],
+    ["Los Angeles Dodgers","LAD"],
+    ["Milwaukee Brewers","MIL"],
+    ["Oakland Athletics","OAK"],
+    ["Philadelphia Phillies","PHI"],
+    ["San Diego Padres","SD"],
+    ["San Francisco Giants","SF"],
+    ["Seattle Mariners","SEA"],
+    ["Texas Rangers","TEX"],
+];
+
 export default TEAM_DATA;

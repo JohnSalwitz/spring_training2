@@ -22,7 +22,6 @@ export default function MyCalendar() {
     const YEAR = 2025;
     const MONTH = 1;
     const MONTH_COUNT = 2;
-
     const START_DATE = new Date(YEAR, MONTH, 1, 12,0,0);
 
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
