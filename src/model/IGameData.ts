@@ -10,7 +10,7 @@ export interface IGameData {
 }
 
 export const SCORE_WEIGHTS = {
-    "base_game_score" : 0,
+    "base_game_score" : 10,
     "home_bonus": {"SF": 25, "CHC": 25, "MIL": 13, "OAK": 10, "LAA": 10, "COL": 8, "AZ": 8},
     "away_bonus": {"SF": 15, "CHC": 15},
     "night_game_penalty": -15,

@@ -12,6 +12,10 @@ export default class Game {
         this._homeSplit = homeSplit;
     }
 
+    get longName(): string {
+        return this._row.name;
+    }
+
     get away(): string {
         return this._row.away;
     }
@@ -30,40 +34,42 @@ export default class Game {
     }
 
     get dateTime(): Date {
-        return new Date(this._row.startDate + "Z");
+        return new Date(this._row.startDate);
     }
 
     get isNight() {
         return this.dateTime.getHours() > 16;
     }
 
-    get score(): number {
-        let score: number = SCORE_WEIGHTS.base_game_score;
-
-        // visitor bonus
-        if (this.away in SCORE_WEIGHTS.away_bonus) {
-            score += (SCORE_WEIGHTS.away_bonus as { [key: string]: number })[this.away];
-        }
-
-        if (this.awaySS) {
-            score += SCORE_WEIGHTS.split_squad_penalty;
-        }
+    scoreItems() : [string, number][] {
+        const _items: [string, number][] = [];
 
         // home bonus
-        if (this.home in SCORE_WEIGHTS.home_bonus) {
-            score += (SCORE_WEIGHTS.home_bonus as { [key: string]: number })[this.home];
+        _items.push(["home bonus", (SCORE_WEIGHTS.home_bonus as { [key: string]: number })[this.home] || 0]);
+
+
+        // home squad visitor
+        if (this.homeSS) {
+            _items.push(["home split penalty", SCORE_WEIGHTS.split_squad_penalty]);
         }
 
-        if (this.homeSS) {
-            score += SCORE_WEIGHTS.split_squad_penalty;
+        _items.push(["visitor bonus", (SCORE_WEIGHTS.away_bonus as { [key: string]: number })[this.away] || 0]);
+
+        // split squad visitor
+        if (this.awaySS) {
+            _items.push(["visitor split penalty", SCORE_WEIGHTS.split_squad_penalty]);
         }
 
         // nighttime penalty
         if (this.isNight) {
-            score += SCORE_WEIGHTS.night_game_penalty;
+            _items.push(["night game penalty", SCORE_WEIGHTS.night_game_penalty]);
         }
 
-        return score;
+        return _items;
+    }
+
+    get score(): number {
+        return this.scoreItems().reduce((acc, item) => acc + item[1], 0);
     }
 
     get color(): string {

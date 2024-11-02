@@ -4,12 +4,20 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+import {schedule, title} from "../data/schedule_2025.ts";
+
+import GameScoreDialog from "./GameScoreDialog.tsx"
 
 import {TEAM_DATA_WEST, TeamAbreviationType, TeamDataType} from "../model/TeamData.ts";
 import GameDay from "../model/GameDay.ts";
-import {schedule, title} from "../data/schedule_2025.ts";
+import Game from "../model/Game.ts"
 
 function TableCalendar() {
+
+    const [selectedGame, setSelectedGame] =
+        React.useState<Game | null>(null)
 
     const COL_WIDTH = 100
     const ROW_HEIGHT = 32
@@ -39,90 +47,116 @@ function TableCalendar() {
     const _rowHeight = `${ROW_HEIGHT}px`;
     const _tableWidth = `${COL_WIDTH * days.length}px`;
 
+    let _oddEvenWeek = 0;
 
-    const _homeGameBox = (gameDay: GameDay, home: TeamAbreviationType): React.ReactElement => {
-        const _game = gameDay.homeGame(home);
-        if (_game) {
-            if(_game.score > 0) {
-                return (<Box sx={{
+    return (
+        <React.Fragment>
+
+            <GameScoreDialog
+                game={selectedGame}
+                onClose={() => setSelectedGame(null)}
+            />
+
+            <Paper elevation={3}
+                   sx={{display: "flex", flexDirection: "column", p: 1, width: '90vw', overflow: "hidden"}}>
+
+                <Typography variant={"h4"}>{title}</Typography>
+
+                <Box sx={{display: "flex", p: 1, width: '100%', height: '100%', overflow: "hidden"}}>
+
+                    {/* Home Team Names */}
+                    <Box sx={{width: _colWidth, height: "auto", border: 1}}>
+                        <Box sx={{width: _colWidth, height: _rowHeight, border: 1}}>HOME</Box>
+                        <Box sx={{height: "2px"}}></Box>
+                        {TEAM_DATA_WEST.map((td: TeamDataType, index) =>
+                            <Box sx={{width: _colWidth, height: _rowHeight, border: 1}} key={index}>{td[1]}</Box>
+                        )}
+                    </Box>
+
+                    <Box sx={{flexGrow: 1, px: 1, height: "auto", overflow: "scroll"}}>
+                        <Stack direction="row" sx={{width: _tableWidth, height: "auto", border: 1}}>{
+                            days.map((day: Date, index) => {
+                                    const _gameDay = new GameDay(schedule, day);
+                                    if (day.getDay() === 0) {
+                                        _oddEvenWeek = 1 - _oddEvenWeek;
+                                    }
+                                    return (
+                                        <Box sx={{width: _colWidth}}>
+
+                                            {/* Date */}
+                                            <Box sx={{
+                                                width: _colWidth,
+                                                height: _rowHeight,
+                                                border: 1,
+                                                backgroundColor: _oddEvenWeek ? "LightGrey" : "LightBlue"
+                                            }}
+                                                 key={index}>{formatDay(day)}
+                                            </Box>
+
+                                            <Box sx={{height: "2px"}}></Box>
+
+                                            {/* Home Games */}
+                                            {TEAM_DATA_WEST.map((td: TeamDataType, index2) =>
+                                                <Box key={index2} sx={{
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    width: _colWidth,
+                                                    height: _rowHeight,
+                                                    border: 1,
+
+                                                }}>
+                                                    <HomeGameBox
+                                                        gameDay={_gameDay}
+                                                        home={td[1]}
+                                                        onSelect={setSelectedGame}
+                                                    />
+                                                </Box>
+                                            )}
+                                        </Box>
+                                    )
+                                }
+                            )}
+                        </Stack>
+                    </Box>
+                </Box>
+            </Paper>
+        </React.Fragment>
+    )
+}
+
+interface IHomeGameBoxProps {
+    gameDay: GameDay,
+    home: TeamAbreviationType,
+    onSelect: (game: Game) => void
+}
+
+function HomeGameBox({gameDay, home, onSelect}: IHomeGameBoxProps): React.ReactElement {
+    const _game: Game | undefined = gameDay.homeGame(home);
+    if (_game) {
+        if (_game.score > 0) {
+            return (<Button
+                onClick={() => onSelect(_game)}
+                sx={{
                     width: 0.95,
                     height: 0.95,
                     backgroundColor: _game.color,
-                }}>{`${_game.away}(${_game.score})`}</Box>)
-            }
-            return (<Box sx={{
+                    color: "black",
+                }}
+            >{`${_game.away}(${_game.score})`}</Button>)
+        }
+        return (<Button
+            onClick={() => onSelect(_game)}
+            sx={{
                 width: 0.95,
                 height: 0.95,
                 backgroundColor: "lightGrey",
                 opacity: 0.3,
-            }}>{`${_game.away}(${_game.score})`}</Box>)
-        }
-        return <></>
+                color: "black"
+            }}>{`${_game.away}(${_game.score})`}</Button>)
     }
-
-    let _oddEvenWeek = 0;
-
-    return (
-        <Paper elevation={3} sx={{display: "flex", flexDirection: "column", p: 1, width: '90vw', overflow: "hidden"}}>
-
-            <Typography variant={"h4"}>{title}</Typography>
-
-            <Box sx={{display: "flex", p: 1, width: '100%', height: '100%', overflow: "hidden"}}>
-
-                {/* Home Team Names */}
-                <Box sx={{width: _colWidth, height: "auto", border: 1}}>
-                    <Box sx={{width: _colWidth, height: _rowHeight, border: 1}}>HOME</Box>
-                    <Box sx={{height: "2px"}}></Box>
-                    {TEAM_DATA_WEST.map((td: TeamDataType, index) =>
-                        <Box sx={{width: _colWidth, height: _rowHeight, border: 1}} key={index}>{td[1]}</Box>
-                    )}
-                </Box>
-
-                <Box sx={{flexGrow: 1, px: 1, height: "auto", overflow: "scroll"}}>
-                    <Stack direction="row" sx={{width: _tableWidth, height: "auto", border: 1}}>{
-                        days.map((day: Date, index) => {
-                                const _gameDay = new GameDay(schedule, day);
-                                if (day.getDay() === 0) {
-                                    _oddEvenWeek = 1 - _oddEvenWeek;
-                                }
-                                return (
-                                    <Box sx={{width: _colWidth}}>
-
-                                        {/* Date */}
-                                        <Box sx={{
-                                            width: _colWidth,
-                                            height: _rowHeight,
-                                            border: 1,
-                                            backgroundColor: _oddEvenWeek ? "LightGrey" : "LightBlue"
-                                        }}
-                                             key={index}>{formatDay(day)}
-                                        </Box>
-
-                                        <Box sx={{height: "2px"}}></Box>
-
-                                        {/* Home Games */}
-                                        {TEAM_DATA_WEST.map((td: TeamDataType, index2) =>
-                                            <Box key={index2} sx={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                width: _colWidth,
-                                                height: _rowHeight,
-                                                border: 1,
-
-                                            }}>
-                                                {_homeGameBox(_gameDay, td[1])}
-                                            </Box>
-                                        )}
-                                    </Box>
-                                )
-                            }
-                        )}
-                    </Stack>
-                </Box>
-            </Box>
-        </Paper>
-    )
+    return <></>
 }
+
 
 export default TableCalendar;

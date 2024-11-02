@@ -60,7 +60,6 @@ export default class GameDay {
 
     }
     homeGame(home: TeamAbreviationType) : Game | undefined {
-        console.log(home, this._games.find(g => g.home === home))
         return this._games.find(g => g.home === home);
     }
 
