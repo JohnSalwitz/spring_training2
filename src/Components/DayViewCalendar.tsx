@@ -42,11 +42,19 @@ function TableCalendar() {
 
     const _homeGameBox = (gameDay: GameDay, home: TeamAbreviationType): React.ReactElement => {
         const _game = gameDay.homeGame(home);
-        if (_game && _game.score > 0) {
+        if (_game) {
+            if(_game.score > 0) {
+                return (<Box sx={{
+                    width: 0.95,
+                    height: 0.95,
+                    backgroundColor: _game.color,
+                }}>{`${_game.away}(${_game.score})`}</Box>)
+            }
             return (<Box sx={{
                 width: 0.95,
                 height: 0.95,
-                backgroundColor: _game.color,
+                backgroundColor: "lightGrey",
+                opacity: 0.3,
             }}>{`${_game.away}(${_game.score})`}</Box>)
         }
         return <></>

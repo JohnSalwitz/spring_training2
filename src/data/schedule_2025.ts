@@ -2,14 +2,14 @@ import {IGameData} from "../model/IGameData.ts"
 
 export const title = "Cactus Spring Training 2025";
 export const schedule: Array<IGameData> = [
-    {
-        "index": 0,
-        "name": "Cubs @ Dodgers",
-        "location": "",
-        "away": "CHC",
-        "home": "LAD",
-        "startDate": "2025-02-20T08:00:00.000Z"
-    },
+        {
+            "index": 0,
+            "name": "Cubs @ Dodgers",
+            "location": "",
+            "away": "CHC",
+            "home": "LAD",
+            "startDate": "2025-02-20T08:00:00.000Z"
+        },
         {
             "index": 1,
             "name": "Rockies @ Diamondbacks",

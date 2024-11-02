@@ -59,18 +59,9 @@ export default class GameDay {
         return Math.round(score);
 
     }
-
     homeGame(home: TeamAbreviationType) : Game | undefined {
-        return this.games.find(g => g.home === home);
-    }
-
-    homeGameScore(home: TeamAbreviationType) : [string | undefined, number] {
-        const _game = this.games.find(g => g.home === home);
-        if(_game !== undefined) {
-            return [_game.away, _game.score];
-        }
-
-        return [undefined, 0]
+        console.log(home, this._games.find(g => g.home === home))
+        return this._games.find(g => g.home === home);
     }
 
     /**
