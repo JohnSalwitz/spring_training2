@@ -1,5 +1,6 @@
 
 import {IGameData, SCORE_WEIGHTS} from "./IGameData.ts";
+import {TEAM_TICKET_SITES} from "./TeamData.ts";
 
 export default class Game {
     private _row: IGameData;
@@ -16,6 +17,9 @@ export default class Game {
         return this._row.name;
     }
 
+    get tickets(): string | undefined{
+        return TEAM_TICKET_SITES[this._row.home];
+    }
     get away(): string {
         return this._row.away;
     }

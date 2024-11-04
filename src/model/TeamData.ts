@@ -1,6 +1,7 @@
 
 export type TeamAbreviationType = string;
 export type TeamDataType = [name: string, abreviation: TeamAbreviationType];
+
 const TEAM_DATA : Array<TeamDataType> = [
     ["Arizona Diamondbacks","ARI"],
     ["Atlanta Braves","ATL"],
@@ -51,5 +52,25 @@ export const TEAM_DATA_WEST : Array<TeamDataType> = [
     ["Seattle Mariners","SEA"],
     ["Texas Rangers","TEX"],
 ];
+
+export const TEAM_TICKET_SITES: {[team: string] : string} = {
+    "ARI" : "https://saltriverfields.com/spring-training-at-salt-river-fields/",
+    "CHC" : "https://www.mlb.com/cubs/sloan-park/tickets/single-game",
+    "CWS" : "",
+    "CIN" : "",
+    "CLE" : "",
+    "COL" : "https://saltriverfields.com/spring-training-at-salt-river-fields/",
+    "KAN" : "",
+    "LAA" : "https://www.mlb.com/angels/spring-training",
+    "LAD" : "",
+    "MIL" : "https://www.mlb.com/brewers/spring-training/ballpark",
+    "OAK" : "https://www.mlb.com/athletics/tickets/spring-training",
+    "SD" : "",
+    "SF" : "https://www.mlb.com/giants/tickets/single-game-tickets",
+    "SEA" : "",
+    "TEX" : "",
+
+    }
+
 
 export default TEAM_DATA;

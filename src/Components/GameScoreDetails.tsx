@@ -8,6 +8,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+
+
 import Game from "../model/Game.ts";
 
 
@@ -48,6 +50,7 @@ export default function GameScoreDetails({game}: IProps) {
                         {game?.dateTime.toLocaleDateString()}
                     </Typography>
                 </Box>
+
                 <Typography variant="h6" mt={2}>
                     Score:
                 </Typography>
