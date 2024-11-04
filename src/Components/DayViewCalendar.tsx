@@ -9,12 +9,13 @@ import Button from '@mui/material/Button';
 import {schedule, title} from "../data/schedule_2025.ts";
 
 import GameScoreDialog from "./GameScoreDialog.tsx"
+import useHorizontalScroll from "./UseHorizontalScroll.tsx"
 
 import {TEAM_DATA_WEST, TeamAbreviationType, TeamDataType} from "../model/TeamData.ts";
 import GameDay from "../model/GameDay.ts";
 import Game from "../model/Game.ts"
 
-function TableCalendar() {
+export default function DayViewCalendar() {
 
     const [selectedGame, setSelectedGame] =
         React.useState<Game | null>(null)
@@ -49,6 +50,8 @@ function TableCalendar() {
 
     let _oddEvenWeek = 0;
 
+    const scrollRef = useHorizontalScroll();
+
     return (
         <React.Fragment>
 
@@ -73,7 +76,7 @@ function TableCalendar() {
                         )}
                     </Box>
 
-                    <Box sx={{flexGrow: 1, px: 1, height: "auto", overflow: "scroll"}}>
+                    <Box ref={scrollRef} sx={{flexGrow: 1, px: 1, height: "auto", overflow: "scroll"}}>
                         <Stack direction="row" sx={{width: _tableWidth, height: "auto", border: 1}}>{
                             days.map((day: Date, index) => {
                                     const _gameDay = new GameDay(schedule, day);
@@ -120,6 +123,7 @@ function TableCalendar() {
                         </Stack>
                     </Box>
                 </Box>
+                <Typography variant={"subtitle2"}>* Click on game to see details of scoring.</Typography>
             </Paper>
         </React.Fragment>
     )
@@ -159,4 +163,3 @@ function HomeGameBox({gameDay, home, onSelect}: IHomeGameBoxProps): React.ReactE
 }
 
 
-export default TableCalendar;

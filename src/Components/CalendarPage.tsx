@@ -1,7 +1,7 @@
 
-import TableCalendar from "./DayViewCalendar.tsx";
+import DayViewCalendar from "./DayViewCalendar.tsx";
 export default function CalendarPage() {
     return (
-            <TableCalendar />
+        <DayViewCalendar />
     );
 }
