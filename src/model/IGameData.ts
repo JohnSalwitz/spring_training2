@@ -11,8 +11,8 @@ export interface IGameData {
 
 export const SCORE_WEIGHTS = {
     "base_game_score" : 10,
-    "home_bonus": {"SF": 25, "CHC": 25, "MIL": 13, "OAK": 10, "LAA": 10, "COL": 8, "AZ": 8},
-    "away_bonus": {"SF": 15, "CHC": 15},
+    "home_bonus": {"SF": 25, "CHC": 25, "MIL": 13, "OAK": 10, "LAA": 10, "COL": 6, "ARI": 6},
+    "away_bonus": {"SF": 15, "CHC": 15, "SD" : 5},
     "night_game_penalty": -15,
     "split_squad_penalty": -15,
     "not_a_weekend_penalty": 0,
