@@ -61,7 +61,7 @@ export default function DayViewCalendar() {
             />
 
             <Paper elevation={3}
-                   sx={{display: "flex", flexDirection: "column", p: 1, width: '90vw', overflow: "hidden"}}>
+                   sx={{display: "flex", flexDirection: "column", m: 0, p: 1, width: '100%', overflow: "hidden"}}>
 
                 <Typography variant={"h4"}>{title}</Typography>
 

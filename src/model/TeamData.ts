@@ -46,7 +46,6 @@ export const TEAM_DATA_WEST : Array<TeamDataType> = [
     ["Los Angeles Dodgers","LAD"],
     ["Milwaukee Brewers","MIL"],
     ["Oakland Athletics","OAK"],
-    ["Philadelphia Phillies","PHI"],
     ["San Diego Padres","SD"],
     ["San Francisco Giants","SF"],
     ["Seattle Mariners","SEA"],
