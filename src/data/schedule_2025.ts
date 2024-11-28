@@ -985,6 +985,8 @@ export const schedule: Array<IGameData> = [
         "location": " Tempe Diablo Stadium",
         "away": "CIN",
         "home": "LAA",
+        "ticketCount" : 10,
+        "ticketCost" : 525,
         "startDate": "2025-03-09T20:10:00.000Z"
     },
     {
@@ -1065,7 +1067,9 @@ export const schedule: Array<IGameData> = [
         "location": " American Family Fields of Phoenix",
         "away": "SEA",
         "home": "MIL",
-        "startDate": "2025-03-10T20:10:00.000Z"
+        "startDate": "2025-03-10T20:10:00.000Z",
+        "ticketCount" : 10,
+        "ticketCost" : 495
     },
     {
         "index": 133,

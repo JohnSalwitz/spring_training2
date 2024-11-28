@@ -20,6 +20,22 @@ export default class Game {
     get tickets(): string | undefined{
         return TEAM_TICKET_SITES[this._row.home];
     }
+
+    get ticketCount(): number {
+        return this._row.ticketCount || 0;
+    }
+
+    get isTicked() : boolean {
+        return this.ticketCount  > 0;
+    }
+
+    get ticketPrice(): number {
+        if(this.ticketCount > 0) {
+            return (this._row.ticketCost || 9999) / this.ticketCount;
+        }
+        return 9999;
+    }
+
     get away(): string {
         return this._row.away;
     }

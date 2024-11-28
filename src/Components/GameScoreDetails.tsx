@@ -38,6 +38,11 @@ export default function GameScoreDetails({game}: IProps) {
 
     }
 
+// Create a formatter for US dollars
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
 
     return (
         <Paper sx = {{width: '30vw'}} elevation={3}>
@@ -50,6 +55,20 @@ export default function GameScoreDetails({game}: IProps) {
                         {game?.dateTime.toLocaleDateString()}
                     </Typography>
                 </Box>
+
+                {game?.isTicked &&
+                    <Box sx={{m: 3, backgroundColor: "#FFBF00", border: 3, p:1, borderColor: "black"}}>
+                        <Typography>
+                            We are going to this game!
+                        </Typography>
+                        <Typography>
+                            {`Ticket Count: ${game.ticketCount}`}
+                        </Typography>
+                        <Typography>
+                            {`Cost Per Ticket: ${formatter.format(game.ticketPrice)}`}
+                        </Typography>
+                    </Box>
+                }
 
                 <Typography variant="h6" mt={2}>
                     Score:

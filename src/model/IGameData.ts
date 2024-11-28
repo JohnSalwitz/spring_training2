@@ -7,6 +7,9 @@ export interface IGameData {
     startDate: string,
     away: TeamAbreviationType,
     home: TeamAbreviationType,
+
+    ticketCount? : number,
+    ticketCost?: number,
 }
 
 export const SCORE_WEIGHTS = {

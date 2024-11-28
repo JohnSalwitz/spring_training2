@@ -146,6 +146,8 @@ function HomeGameBox({gameDay, home, onSelect}: IHomeGameBoxProps): React.ReactE
                     height: 0.95,
                     backgroundColor: _game.color,
                     color: "black",
+                    border: _game.isTicked ? 4 : 0,
+                    borderColor: "red"
                 }}
             >{`${_game.away}(${_game.score})`}</Button>)
         }
@@ -156,7 +158,8 @@ function HomeGameBox({gameDay, home, onSelect}: IHomeGameBoxProps): React.ReactE
                 height: 0.95,
                 backgroundColor: "lightGrey",
                 opacity: 0.3,
-                color: "black"
+                color: "black",
+                border: _game.isTicked ? 3 : 0,
             }}>{`${_game.away}(${_game.score})`}</Button>)
     }
     return <></>

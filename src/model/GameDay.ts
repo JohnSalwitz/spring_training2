@@ -30,6 +30,8 @@ export default class GameDay {
         return this.date.getDay() === 0 || this.date.getDay() === 6;
     }
 
+
+
     /**
      * Returns sorted list of games on this day (sorted by score)
      */
